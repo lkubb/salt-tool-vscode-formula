@@ -1,0 +1,20 @@
+tool:
+  users:
+    user:
+      xdg: true                         # force xdg dirs
+      dotconfig: true                   # sync this user's config from a dotfiles repo available as salt://dotconfig/<user>/vscode or salt://dotconfig/vscode
+      persistenv: '.config/zsh/zshenv'  # persist env vars specified in salt to this file (will be appended to file relative to $HOME)
+      rchook: '.config/zsh/zshrc'       # add runcom hooks to this file (will be appended to file relative to $HOME)
+      vscode:
+        extensions:
+          - ms-vscode.cpptools
+  vscode:
+    users:
+      user:                             # user configuration can also be specified in tool:vscode:users
+        persistenv: '.bash_profile'
+        vscode:
+          extensions:
+            - ms-python.python
+    defaults:                           # default formula configuration for all users
+      extensions:
+        - ms-vscode.go
