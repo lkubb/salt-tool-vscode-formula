@@ -79,3 +79,6 @@ to the user's config dir for every user that has it enabled (see `user.dotconfig
 
 ## Todo
 This formula has not been tested and mostly exists as documentation atm. Especially the dotfiles and xdg parts might be flaky.
+
+## References
+- found [this formula](https://github.com/saltstack-formulas/vscode-formula) after the fact, see for inspiration
