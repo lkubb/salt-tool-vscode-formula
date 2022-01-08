@@ -29,13 +29,13 @@ def is_installed(name, user=None):
 def install(name, user=None):
     e = _which(user)
 
-    return __salt__['cmd.retcode']("{} --install-extension '{}'".format(e, name), runas=user)
+    return not __salt__['cmd.retcode']("{} --install-extension '{}'".format(e, name), runas=user)
 
 
 def remove(name, user=None):
     e = _which(user)
 
-    return __salt__['cmd.retcode']("{} --uninstall-extension '{}'".format(e, name), runas=user)
+    return not __salt__['cmd.retcode']("{} --uninstall-extension '{}'".format(e, name), runas=user)
 
 
 def _list_installed(user=None):
