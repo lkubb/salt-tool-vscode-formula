@@ -1,10 +1,8 @@
+import salt.utils.platform
 from salt.exceptions import CommandExecutionError
-# import logging
 import json
 
-import salt.utils.platform
 
-# log = logging.getLogger(__name__)
 __virtualname__ = "vscode"
 
 
@@ -13,11 +11,12 @@ def __virtual__():
 
 
 def _which(user=None):
-    if e := salt["cmd.run"]("command -v code", runas=user):
+    if e := __salt__["cmd.run"]("command -v code", runas=user):
         return e
     if salt.utils.platform.is_darwin():
+        # brew --prefix does not work
         for f in ['/opt/homebrew/bin', '/usr/local/bin']:
-            if p := salt["cmd.run"]("test -s {}/code && echo {}/code".format(f, f) , runas=user):
+            if p := __salt__["cmd.run"]("test -s {}/code && echo {}/code".format(f, f) , runas=user):
                 return p
     raise CommandExecutionError("Could not find code executable.")
 
@@ -40,7 +39,7 @@ def remove(name, user=None):
 
 def _list_installed(user=None):
     e = _which(user)
-    out = json.loads(__salt__['cmd.run']('{} --list-extensions'.format(e), runas=user, raise_err=True))
+    out = json.loads(__salt__['cmd.run_stdout']('{} --list-extensions'.format(e), runas=user, raise_err=True))
     if out:
         return _parse(out)
     raise CommandExecutionError('Something went wrong while calling VSCode.')
