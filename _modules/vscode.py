@@ -11,12 +11,16 @@ def __virtual__():
 
 
 def _which(user=None):
-    if e := __salt__["cmd.run"]("command -v code", runas=user):
+    e = __salt__["cmd.run"]("command -v code", runas=user)
+    # if e := __salt__["cmd.run"]("command -v code", runas=user):
+    if e:
         return e
     if salt.utils.platform.is_darwin():
         # brew --prefix does not work
         for f in ['/opt/homebrew/bin', '/usr/local/bin']:
-            if p := __salt__["cmd.run"]("test -s {}/code && echo {}/code".format(f, f) , runas=user):
+            p = __salt__["cmd.run"]("test -s {}/code && echo {}/code".format(f, f) , runas=user)
+            # if p := __salt__["cmd.run"]("test -s {}/code && echo {}/code".format(f, f) , runas=user):
+            if p:
                 return p
     raise CommandExecutionError("Could not find code executable.")
 
