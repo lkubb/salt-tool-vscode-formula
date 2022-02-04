@@ -14,7 +14,7 @@ Existing VSCode extensions are migrated for user '{{ user.name }}':
     - onlyif:
       - test -e {{ user.home }}/.vscode/extensions
     - makedirs: true
-    - prereq_in:
+    - require_in:
       - VSCode setup is completed
 
   {%- if 'Darwin' == grains['kernel'] %}
@@ -38,10 +38,20 @@ VSCode uses XDG dirs during this salt run:
   environ.setenv:
     - value:
         VSCODE_EXTENSIONS: "{{ user.xdg.data }}/vscode/extensions"
-    - prereq_in:
+    - require_in:
       - VSCode setup is completed
 
   {%- if user.get('persistenv') %}
+
+persistenv file for VSCode for user '{{ user.name }}' exists:
+  file.managed:
+    - name: {{ user.home }}/{{ user.persistenv }}
+    - user: {{ user.name }}
+    - group: {{ user.group }}
+    - mode: '0600'
+    - dir_mode: '0700'
+    - makedirs: true
+
 VSCode knows about XDG location for user '{{ user.name }}':
   file.append:
     - name: {{ user.home }}/{{ user.persistenv }}
@@ -49,7 +59,9 @@ VSCode knows about XDG location for user '{{ user.name }}':
     - user: {{ user.name }}
     - group: {{ user.group }}
     - mode: '0600'
-    - prereq_in:
+    - require:
+      - persistenv file for VSCode for user '{{ user.name }}' exists
+    - require_in:
       - VSCode setup is completed
   {%- endif %}
 {%- endfor %}
