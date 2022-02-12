@@ -48,6 +48,7 @@ persistenv file for VSCode for user '{{ user.name }}' exists:
     - name: {{ user.home }}/{{ user.persistenv }}
     - user: {{ user.name }}
     - group: {{ user.group }}
+    - replace: false
     - mode: '0600'
     - dir_mode: '0700'
     - makedirs: true
