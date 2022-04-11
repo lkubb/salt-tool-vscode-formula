@@ -1,0 +1,57 @@
+{
+  "template": "https://github.com/lkubb/salt-tool-template-formula",
+  "commit": "64ee3bea326c347112c4488a7a13ac05852e728f",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "_extensions": [
+        "local_extensions.YAMLDumper"
+      ],
+      "_jinja2_env_vars": {
+        "block_start_string": "{!",
+        "block_end_string": "!}",
+        "variable_start_string": "{=",
+        "variable_end_string": "=}",
+        "comment_start_string": "{@",
+        "comment_end_string": "@}"
+      },
+      "name": "Visual Studio Code",
+      "abbr": "vscode",
+      "abbr_pysafe": "vscode",
+      "pkg": "code",
+      "modstate": "y",
+      "needs_repo": "y",
+      "has_service": "n",
+      "mac_library": "y",
+      "mac_cask": "y",
+      "has_xdg": "y",
+      "needs_xdg_help": "y",
+      "has_conffile_only": "n",
+      "default_confdir": ".config/Code",
+      "default_confdir_mac": "Library/Application Support/Code/User",
+      "default_conffile": "settings.json",
+      "xdg_dirname": "Code",
+      "xdg_conffile": "settings.json",
+      "has_configsync": "y",
+      "has_config_template": "n",
+      "has_completions": "n",
+      "has_tests": "y",
+      "git_username": "lkubb",
+      "_lookup": {},
+      "_settings": {},
+      "_usersettings": {
+        "extensions": {
+          "absent": [
+            "golang.go"
+          ],
+          "wanted": [
+            "ms-vscode.cpptools",
+            "ms-python.python"
+          ]
+        }
+      },
+      "_template": "https://github.com/lkubb/salt-tool-template-formula"
+    }
+  },
+  "directory": null
+}

@@ -22,12 +22,6 @@ def installed(name, user=None):
     """
     Make sure VSCode extension is installed.
 
-    CLI Example:
-
-    .. code-block:: bash
-
-        salt '*' vscode.installed ms-vscode.cpptools user=user
-
     name
         The extension id to install, if not installed already.
 
@@ -40,13 +34,19 @@ def installed(name, user=None):
     try:
         if __salt__["vscode.is_installed"](name, user):
             ret["comment"] = "VSCode extension is already installed."
-        elif __opts__['test']:
-            ret['result'] = None
-            ret['comment'] = "VSCode extension '{}' would have been installed for user '{}'.".format(name, user)
-            ret["changes"] = {'installed': name}
+        elif __opts__["test"]:
+            ret["result"] = None
+            ret[
+                "comment"
+            ] = "VSCode extension '{}' would have been installed for user '{}'.".format(
+                name, user
+            )
+            ret["changes"] = {"installed": name}
         elif __salt__["vscode.install"](name, user):
-            ret["comment"] = "VSCode extension '{}' was installed for user '{}'.".format(name, user)
-            ret["changes"] = {'installed': name}
+            ret[
+                "comment"
+            ] = "VSCode extension '{}' was installed for user '{}'.".format(name, user)
+            ret["changes"] = {"installed": name}
         else:
             ret["result"] = False
             ret["comment"] = "Something went wrong while calling VSCode."
@@ -61,12 +61,6 @@ def absent(name, user=None):
     """
     Make sure VSCode extension is removed.
 
-    CLI Example:
-
-    .. code-block:: bash
-
-        salt '*' vscode.absent ms-vscode.cpptools user=user
-
     name
         The extension id to remove, if installed.
 
@@ -79,13 +73,19 @@ def absent(name, user=None):
     try:
         if not __salt__["vscode.is_installed"](name, user):
             ret["comment"] = "VSCode extension is already absent."
-        elif __opts__['test']:
-            ret['result'] = None
-            ret['comment'] = "VSCode extension '{}' would have been removed for user '{}'.".format(name, user)
-            ret["changes"] = {'installed': name}
+        elif __opts__["test"]:
+            ret["result"] = None
+            ret[
+                "comment"
+            ] = "VSCode extension '{}' would have been removed for user '{}'.".format(
+                name, user
+            )
+            ret["changes"] = {"removed": name}
         elif __salt__["vscode.remove"](name, user):
-            ret["comment"] = "VSCode extension '{}' was removed for user '{}'.".format(name, user)
-            ret["changes"] = {'installed': name}
+            ret["comment"] = "VSCode extension '{}' was removed for user '{}'.".format(
+                name, user
+            )
+            ret["changes"] = {"removed": name}
         else:
             ret["result"] = False
             ret["comment"] = "Something went wrong while calling VSCode."

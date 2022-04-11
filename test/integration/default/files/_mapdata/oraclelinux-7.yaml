@@ -1,0 +1,55 @@
+# yamllint disable rule:indentation rule:line-length
+# Oracle Linux Server-7
+---
+values:
+  users:
+    user:
+      completions: .completions
+      configsync: true
+      persistenv: .bash_profile
+      rchook: .bashrc
+      xdg: true
+      vscode:
+        extensions:
+          absent:
+            - golang.go
+          wanted:
+            - ms-vscode.cpptools
+            - ms-python.python
+  added_in_defaults: defaults_value
+  added_in_lookup: lookup_value
+  added_in_pillar: pillar_value
+  arch: amd64
+  lookup:
+    added_in_lookup: lookup_value
+    master: template-master
+    winner: lookup
+    pkg:
+      name: visual-studio-code
+      enable_repo:
+        - stable
+    paths:
+      confdir: '.config/Code'
+      conffile: 'settings.json'
+      xdg_dirname: 'Code'
+      xdg_conffile: 'settings.json'
+    rootgroup: root
+  map_jinja:
+    sources:
+    - "Y:G@osarch"
+    - "Y:G@os_family"
+    - "Y:G@os"
+    - "Y:G@osfinger"
+    - "C@tool_global"
+    - "C@tool_vscode"
+    - "Y:G@id"
+  master: template-master
+  tofs:
+    files_switch:
+    - any/path/can/be/used/here
+    - id
+    - roles
+    - osfinger
+    - os
+    - os_family
+  winner: pillar

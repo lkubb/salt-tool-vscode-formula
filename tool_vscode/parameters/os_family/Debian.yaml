@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set values specific to:
+#   salt['config.get']('os_family') == Debian.
+#
+# You just need to add the key:values for this `os_family` that differ
+# from `defaults.yaml` + `<osarch>.yaml`.
+#
+# If you do not need to provide defaults via the `os_family` config,
+# you can remove this file or provide at least an empty dict, e.g.
+# values: {}
+---
+values:
+  lookup:
+    pkg:
+      manager: apt
+      repos:
+        stable:
+          humanname: Visual Studio Code  # yamllint disable rule:line-length
+          name: deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main
+          file: /etc/apt/sources.list.d/vscode.list
+          keyring:
+            file: /etc/apt/trusted.gpg.d/packages.microsoft.gpg
+            # needs to be dearmored
+            source: https://packages.microsoft.com/keys/microsoft.asc
+            source_hash: 2cfd20a306b2fa5e25522d78f2ef50a1f429d35fd30bd983e2ebffc2b80944fa
+...
