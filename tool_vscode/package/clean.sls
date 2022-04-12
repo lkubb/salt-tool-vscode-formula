@@ -10,6 +10,7 @@ include:
   - {{ sls_config_clean }}
   - {{ slsdotpath }}.repo.clean
 
+
 Visual Studio Code is removed:
   pkg.removed:
     - name: {{ vscode.lookup.pkg.name }}

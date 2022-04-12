@@ -24,7 +24,7 @@ tool_vscode:
     added_in_lookup: lookup_value
 
     pkg:
-      name: visual-studio-code
+      name: code
       enable_repo:
         - stable
     paths:

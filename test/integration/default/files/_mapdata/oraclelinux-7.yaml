@@ -25,7 +25,7 @@ values:
     master: template-master
     winner: lookup
     pkg:
-      name: visual-studio-code
+      name: code
       enable_repo:
         - stable
     paths:

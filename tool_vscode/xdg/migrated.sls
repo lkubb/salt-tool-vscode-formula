@@ -12,7 +12,7 @@ include:
 # https://github.com/microsoft/vscode/issues/3884
 
 
-{%- for user in vscode.users | rejectattr('xdg', 'sameas', False) %}
+{%- for user in vscode.users | rejectattr('xdg', 'sameas', false) %}
 
 {%-   set user_default_conf = user.home | path_join(vscode.lookup.paths.confdir) %}
 {%-   set user_default_data = user.home | path_join(vscode.lookup.paths.datadir) %}

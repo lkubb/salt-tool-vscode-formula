@@ -1,7 +1,7 @@
 .. _em_vscode:
 
-vscode execution module
-=======================
+``vscode`` execution module
+===========================
 
 .. automodule:: _modules.vscode
    :members:

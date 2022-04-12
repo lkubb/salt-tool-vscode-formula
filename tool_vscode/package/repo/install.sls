@@ -5,6 +5,7 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
 
+
 {%- if grains['os'] in ['Debian', 'Ubuntu'] %}
 
 Ensure Visual Studio Code APT repository can be managed:
@@ -45,7 +46,7 @@ Visual Studio Code {{ reponame }} signing key is dearmored:
       - Visual Studio Code {{ reponame }} signing key is available
 {%-   endif %}
 
-Visual Studio Code {{ repo }} repository is available:
+Visual Studio Code {{ reponame }} repository is available:
   pkgrepo.managed:
 {%-   for conf, val in vscode.lookup.pkg.repos[reponame].items() %}
     - {{ conf }}: {{ val }}

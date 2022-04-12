@@ -1,7 +1,7 @@
 .. _sm_vscode:
 
-vscode state module
-===================
+``vscode`` state module
+=======================
 
 .. automodule:: _states.vscode
    :members:

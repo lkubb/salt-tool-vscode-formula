@@ -93,7 +93,7 @@ tool_vscode:
 ######################################################################
   lookup:
     pkg:
-      name: visual-studio-code
+      name: code
       enable_repo:
         - stable
     rootgroup: root

@@ -6,6 +6,6 @@ portage:
 tool_vscode:
   lookup:
     pkg:
-      name: visual-studio-code
+      name: code
     service:
-      name: visual-studio-code
+      name: code
