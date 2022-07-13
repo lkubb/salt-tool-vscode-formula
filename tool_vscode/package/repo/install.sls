@@ -31,7 +31,7 @@ Visual Studio Code {{ reponame }} signing key is available:
       - {{ vscode.lookup.pkg.repos[reponame].keyring.source }}
     - source_hash: {{ vscode.lookup.pkg.repos[reponame].keyring.source_hash }}
     - user: root
-    - group: {{ brave.lookup.rootgroup }}
+    - group: {{ vscode.lookup.rootgroup }}
     - mode: '0644'
     - dir_mode: '0755'
     - makedirs: true
