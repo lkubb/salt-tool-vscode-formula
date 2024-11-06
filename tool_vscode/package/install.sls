@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
 
 include:
   - {{ slsdotpath }}.repo
 
 
-{%- if 'Windows' == grains.os %}
+{%- if grains.os == "Windows" %}
 
 Visual Studio Code is installed:
   chocolatey.installed:

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
 
 include:
@@ -11,7 +10,7 @@ include:
 # https://github.com/microsoft/vscode/issues/3884
 
 
-{%- for user in vscode.users | rejectattr('xdg', 'sameas', false) %}
+{%- for user in vscode.users | rejectattr("xdg", "sameas", false) %}
 
 {%-   set user_default_conf = user.home | path_join(vscode.lookup.paths.confdir) %}
 {%-   set user_default_data = user.home | path_join(vscode.lookup.paths.datadir) %}
@@ -30,14 +29,14 @@ Visual Studio Code has its data dir in XDG_DATA_HOME for user '{{ user.name }}':
 
 Existing VSCode extensions are migrated for user '{{ user.name }}':
   file.rename:
-    - name: {{ user_xdg_datadir | path_join('extensions') }}
-    - source: {{ user_default_data | path_join('extensions') }}
+    - name: {{ user_xdg_datadir | path_join("extensions") }}
+    - source: {{ user_default_data | path_join("extensions") }}
     - require:
       - Visual Studio Code has its data dir in XDG_DATA_HOME for user '{{ user.name }}'
     - require_in:
       - Visual Studio Code setup is completed
 
-{%-   if 'Darwin' == grains.kernel %}
+{%-   if grains.kernel == "Darwin" %}
 {#-     On MacOS, force settings to XDG_CONFIG_HOME. -#}
 
 # workaround for file.rename not supporting user/group/mode for makedirs
@@ -95,11 +94,11 @@ Visual Studio Code has its config file in XDG_CONFIG_HOME for user '{{ user.name
 Visual Studio Code uses XDG dirs during this salt run:
   environ.setenv:
     - value:
-        VSCODE_EXTENSIONS: "{{ user_xdg_datadir | path_join('extensions') }}"
+        VSCODE_EXTENSIONS: "{{ user_xdg_datadir | path_join("extensions") }}"
     - require_in:
       - Visual Studio Code setup is completed
 
-{%-   if user.get('persistenv') %}
+{%-   if user.get("persistenv") %}
 
 persistenv file for Visual Studio Code exists for user '{{ user.name }}':
   file.managed:
@@ -116,7 +115,7 @@ persistenv file for Visual Studio Code exists for user '{{ user.name }}':
 Visual Studio Code knows about XDG location for user '{{ user.name }}':
   file.append:
     - name: {{ user.home | path_join(user.persistenv) }}
-    - text: export VSCODE_EXTENSIONS="${XDG_DATA_HOME:-$HOME/.local/share}/{{ vscode.lookup.paths.xdg_dirname | path_join('extensions') }}"
+    - text: export VSCODE_EXTENSIONS="${XDG_DATA_HOME:-$HOME/.local/share}/{{ vscode.lookup.paths.xdg_dirname | path_join("extensions") }}"
     - require:
       - persistenv file for Visual Studio Code exists for user '{{ user.name }}'
     - require_in:

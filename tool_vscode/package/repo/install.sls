@@ -1,31 +1,30 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
 
 
-{%- if grains['os'] in ['Debian', 'Ubuntu'] %}
+{%- if grains["os"] in ["Debian", "Ubuntu"] %}
 
 Ensure Visual Studio Code APT repository can be managed:
   pkg.installed:
     - pkgs:
       - apt-transport-https           # the repos use https
       - python-apt                    # required by Salt
-{%-   if 'Ubuntu' == grains['os'] %}
+{%-   if "Ubuntu" == grains["os"] %}
       - python-software-properties    # to better support PPA repositories
 {%-   endif %}
 {%- endif %}
 
 {%- for reponame in vscode.lookup.pkg.enablerepo %}
 
-{%-   if 'apt' == vscode.lookup.pkg.manager %}
+{%-   if vscode.lookup.pkg.manager == "apt" %}
 
 Visual Studio Code {{ reponame }} signing key is available:
   file.managed:
     - name: {{ vscode.lookup.pkg.repos[reponame].keyring.file }}
-    - source: {{ files_switch([salt['file.basename'](vscode.lookup.pkg.repos[reponame].keyring.file)],
-                          lookup='Visual Studio Code ' ~ reponame ~ ' signing key is available')
+    - source: {{ files_switch([salt["file.basename"](vscode.lookup.pkg.repos[reponame].keyring.file)],
+                          lookup="Visual Studio Code " ~ reponame ~ " signing key is available")
               }}
       - {{ vscode.lookup.pkg.repos[reponame].keyring.source }}
     - source_hash: {{ vscode.lookup.pkg.repos[reponame].keyring.source_hash }}
@@ -50,10 +49,10 @@ Visual Studio Code {{ reponame }} repository is available:
 {%-   for conf, val in vscode.lookup.pkg.repos[reponame].items() %}
     - {{ conf }}: {{ val }}
 {%-   endfor %}
-{%-   if vscode.lookup.pkg.manager in ['dnf', 'yum', 'zypper'] %}
+{%-   if vscode.lookup.pkg.manager in ["dnf", "yum", "zypper"] %}
     - enabled: 1
 {%-   endif %}
-{%-   if 'apt' == vscode.lookup.pkg.manager %}
+{%-   if vscode.lookup.pkg.manager == "apt" %}
     - require:
       - Visual Studio Code {{ reponame }} signing key is available
 {%-   endif %}
@@ -66,7 +65,7 @@ Visual Studio Code {{ reponame }} repository is available:
 {%-   if reponame not in vscode.lookup.pkg.enablerepo %}
 Visual Studio Code {{ reponame }} repository is disabled:
   pkgrepo.absent:
-{%-     for conf in ['name', 'ppa', 'ppa_auth', 'keyid', 'keyid_ppa', 'copr'] %}
+{%-     for conf in ["name", "ppa", "ppa_auth", "keyid", "keyid_ppa", "copr"] %}
 {%-       if conf in repodata %}
     - {{ conf }}: {{ repodata[conf] }}
 {%-       endif %}

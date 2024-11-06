@@ -1,14 +1,17 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{#-
+    Removes Visual Studio Code XDG compatibility crutches for all managed users.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
 
 include:
   - {{ tplroot }}.package
 
 
-{%- for user in vscode.users | rejectattr('xdg', 'sameas', false) %}
+{%- for user in vscode.users | rejectattr("xdg", "sameas", false) %}
 
 {%-   set user_default_conf = user.home | path_join(vscode.lookup.paths.confdir) %}
 {%-   set user_default_data = user.home | path_join(vscode.lookup.paths.datadir) %}
@@ -29,7 +32,7 @@ Visual Studio Code does not have its data dir in XDG_DATA_HOME for user '{{ user
     - require:
       - Existing VSCode extensions are cluttering $HOME for user '{{ user.name }}'
 
-{%-   if 'Darwin' == grains.kernel %}
+{%-   if grains.kernel == "Darwin" %}
 
 Visual Studio Code does not care about XDG location of config dir for user '{{ user.name }}':
   file.absent:
@@ -62,7 +65,7 @@ Visual Studio Code uses XDG dirs during this salt run:
     - value:
         VSCODE_EXTENSIONS: false
 
-{%-   if user.get('persistenv') %}
+{%-   if user.get("persistenv") %}
 
 # This would likely need global environment variables to work
 # even when launching via GUI. See `tool_env`.

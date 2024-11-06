@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 # vim: ft=yaml
+# yamllint disable rule:comments-indentation
 ---
 tool_global:
   users:
@@ -32,6 +32,7 @@ tool_vscode:
       conffile: 'settings.json'
       xdg_dirname: 'Code'
       xdg_conffile: 'settings.json'
+    rootgroup: root
 
   tofs:
     # The files_switch key serves as a selector for alternative
