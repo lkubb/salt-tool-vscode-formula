@@ -2,7 +2,6 @@
 
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch %}
 
 
 {%- for user in vscode.users | selectattr("vscode.extensions", "defined") | selectattr("vscode.extensions") %}

@@ -1,5 +1,5 @@
-Welcome to salt-tool-vscode-formula's documentation!
-====================================================
+Welcome to tool-vscode-formula's documentation!
+===============================================
 
 .. toctree::
    :maxdepth: 2

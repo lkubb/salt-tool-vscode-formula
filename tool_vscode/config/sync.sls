@@ -8,7 +8,7 @@
 
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as vscode with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch %}
+{%- from tplroot ~ "/libtofsstack.jinja" import files_switch %}
 
 
 {%- for user in vscode.users | selectattr("dotconfig", "defined") | selectattr("dotconfig") %}
@@ -18,10 +18,14 @@ Visual Studio Code configuration is synced for user '{{ user.name }}':
   file.recurse:
     - name: {{ user["_vscode"].confdir }}
     - source: {{ files_switch(
-                ["Code"],
-                default_files_switch=["id", "os_family"],
-                override_root="dotconfig",
-                opt_prefixes=[user.name]) }}
+                    ["Code"],
+                    lookup="Visual Studio Code configuration is synced for user '{}'".format(user.name),
+                    config=vscode,
+                    path_prefix="dotconfig",
+                    files_dir="",
+                    custom_data={"users": [user.name]},
+                 )
+              }}
     - context:
         user: {{ user | json }}
     - template: jinja
